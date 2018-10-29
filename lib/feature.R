@@ -12,7 +12,7 @@
 
 
 feature <- function(LR_dir, HR_dir, n_points=10){
-  
+
   ### Construct process features for training images (LR/HR pairs)
   
   ### Input: a path for low-resolution images + a path for high-resolution images 

@@ -60,5 +60,3 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     
   }
 }
-
-

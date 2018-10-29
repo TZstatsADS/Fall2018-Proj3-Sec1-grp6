@@ -1,0 +1,25 @@
+---
+title: "performance measure"
+author: "Chen, Yanchen YC3373"
+date: "October 28, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+mse <- function(original, model_output){
+  colnb <- ncol(original)
+  rownb <- nrow(original)
+  mse <- (original-model_output)^2/(3*colnb*rownb)
+  return(mse)
+  
+}
+
+psnr <- function(mse){
+  psnr <- 20*log10(1)-10*log10(mse)
+  return(psnr)
+}
+```
