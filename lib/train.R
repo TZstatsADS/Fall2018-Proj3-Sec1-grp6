@@ -24,8 +24,10 @@ train <- function(dat_train, label_train, par=NULL){
   ### Train with gradient boosting model
   if(is.null(par)){
     depth <- 3
+    n.trees <- 200
   } else {
     depth <- par$depth
+    n.trees <- par$n.trees
   }
   
   ### the dimension of response arrat is * x 4 x 3, which requires 12 classifiers
@@ -37,7 +39,7 @@ train <- function(dat_train, label_train, par=NULL){
     featMat <- dat_train[, , c2]
     labMat <- label_train[, c1, c2]
     fit_gbm <- gbm.fit(x=featMat, y=labMat,
-                       n.trees=200,
+                       n.trees= n.trees,
                        distribution="gaussian",
                        interaction.depth=depth, 
                        bag.fraction = 0.5,

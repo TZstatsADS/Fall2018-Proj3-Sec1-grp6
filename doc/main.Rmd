@@ -29,17 +29,50 @@ Set the working directory to the image folder. Specify the training and the test
 
 ```{r wkdir, eval=FALSE}
 set.seed(2018)
-setwd("./ads_fall2018_proj3") 
+#setwd("./ads_fall2018_proj3") 
+setwd("~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6")
 # here replace it with your own path or manually set it in RStudio to where this rmd file is located. 
 # use relative path for reproducibility
+
+# entire_dir <- "./data/train_set/"
+# entire_LR_dir <- paste(train_dir, "LR/", sep="")
+# entire_HR_dir <- paste(train_dir, "HR/", sep="")
+# 
+# 
+# lengthvec <- 1:length(list.files(entire_LR_dir))
+# testingindex <- sample(lengthvec, 0.2 * length(lengthvec))
+# trainingingindex <- lengthvec[-testingindex]
+```
+
+
+```{r}
+# setwd("~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6")
+# testingfilesLR <- paste0(entire_LR_dir ,  "img_", sprintf("%04d", testingindex), ".jpg")
+# new.folder <- "~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6/data/test/LR"
+# file.copy(testingfilesLR, new.folder)
+# 
+# testingfilesHR <- paste0(entire_HR_dir ,  "img_", sprintf("%04d", testingindex), ".jpg")
+# new.folder <- "~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6/data/test/HR"
+# file.copy(testingfilesHR, new.folder)
+# 
+# trainingfilesLR <- paste0(entire_LR_dir ,  "img_", sprintf("%04d", trainingindex), ".jpg")
+# new.folder <- "~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6/data/train/LR"
+# file.copy(testingfilesLR, new.folder)
+# 
+# trainingfilesHR <- paste0(entire_HR_dir ,  "img_", sprintf("%04d", trainingindex), ".jpg")
+# new.folder <- "~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6/data/train/HR"
+# file.copy(testingfilesHR, new.folder)
 ```
 
 Provide directories for training images. Low-resolution (LR) image set and High-resolution (HR) image set will be in different subfolders. 
 ```{r}
-train_dir <- "../data/train_set/" # This will be modified for different data sets.
+train_dir <- "./data/train_set/" # This will be modified for different data sets.
+
+
 train_LR_dir <- paste(train_dir, "LR/", sep="")
 train_HR_dir <- paste(train_dir, "HR/", sep="")
 train_label_path <- paste(train_dir, "label.csv", sep="") 
+
 ```
 
 ### Step 1: set up controls for evaluation experiments.
@@ -84,7 +117,8 @@ extra_label <- read.csv(train_label_path, colClasses=c("NULL", NA, NA))
   + Output: an RData file that contains extracted features and corresponding responses
 
 ```{r feature}
-source("../lib/feature.R")
+setwd("~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6")
+#source("../lib/feature.R")
 
 tm_feature_train <- NA
 if(run.feature.train){
