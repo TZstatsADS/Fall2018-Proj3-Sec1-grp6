@@ -47,25 +47,24 @@ feature <- function(LR_dir, HR_dir, n_points=10){
     ###           tips: padding zeros for boundary points
     
     for(j in 1:3){
-      
       pad <- cbind(0, imgLR[,,j], 0)
       pad <- rbind(0, pad, 0)
-      
-      featMat[(i-1)*n_points + 1:n_points, 1, j] <- pad[cbind(select_row, select_col)] - pad[cbind(select_row+1, select_col+1)]
-      featMat[(i-1)*n_points + 1:n_points, 2, j] <- pad[cbind(select_row, select_col + 1)]
-      featMat[(i-1)*n_points + 1:n_points, 3, j] <- pad[cbind(select_row, select_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 4, j] <- pad[cbind(select_row +1, select_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 5, j] <- pad[cbind(select_row +2, select_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 6, j] <- pad[cbind(select_row+2, select_col+1)]
-      featMat[(i-1)*n_points + 1:n_points, 7, j] <- pad[cbind(select_row+2, select_col)]
-      featMat[(i-1)*n_points + 1:n_points, 8, j] <- pad[cbind(select_row+1, select_col)]
+      pad_central <- pad[cbind(select_row +1, select_col+1)]
+      featMat[(i-1)*n_points + 1:n_points, 1, j] <- pad[cbind(select_row, select_col)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 2, j] <- pad[cbind(select_row, select_col + 1)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 3, j] <- pad[cbind(select_row, select_col+2)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 4, j] <- pad[cbind(select_row +1, select_col+2)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 5, j] <- pad[cbind(select_row +2, select_col+2)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 6, j] <- pad[cbind(select_row+2, select_col+1)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 7, j] <- pad[cbind(select_row+2, select_col)]-pad_central
+      featMat[(i-1)*n_points + 1:n_points, 8, j] <- pad[cbind(select_row+1, select_col)]-pad_central
       
       channelHR <- imgHR[,,j]
       
-      labMat[(i-1)*n_points + 1:n_points, 1, j] <- channelHR[cbind(select_row*2-1, select_col*2 -1)]
-      labMat[(i-1)*n_points + 1:n_points, 2, j] <- channelHR[cbind(select_row*2-1, select_col*2)]
-      labMat[(i-1)*n_points + 1:n_points, 3, j] <- channelHR[cbind(select_row*2, select_col*2)]
-      labMat[(i-1)*n_points + 1:n_points, 4, j] <- channelHR[cbind(select_row*2, select_col*2 -1)]
+      labMat[(i-1)*n_points + 1:n_points, 1, j] <- channelHR[cbind(select_row*2-1, select_col*2 -1)]-pad_central
+      labMat[(i-1)*n_points + 1:n_points, 2, j] <- channelHR[cbind(select_row*2-1, select_col*2)]-pad_central
+      labMat[(i-1)*n_points + 1:n_points, 3, j] <- channelHR[cbind(select_row*2, select_col*2)]-pad_central
+      labMat[(i-1)*n_points + 1:n_points, 4, j] <- channelHR[cbind(select_row*2, select_col*2 -1)]-pad_central
       
       
     }
