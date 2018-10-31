@@ -51,7 +51,7 @@ feature <- function(LR_dir, HR_dir, n_points=10){
       pad <- cbind(0, imgLR[,,j], 0)
       pad <- rbind(0, pad, 0)
       
-      featMat[(i-1)*n_points + 1:n_points, 1, j] <- pad[cbind(select_row, select_col)]
+      featMat[(i-1)*n_points + 1:n_points, 1, j] <- pad[cbind(select_row, select_col)] - pad[cbind(select_row+1, select_col+1)]
       featMat[(i-1)*n_points + 1:n_points, 2, j] <- pad[cbind(select_row, select_col + 1)]
       featMat[(i-1)*n_points + 1:n_points, 3, j] <- pad[cbind(select_row, select_col+2)]
       featMat[(i-1)*n_points + 1:n_points, 4, j] <- pad[cbind(select_row +1, select_col+2)]

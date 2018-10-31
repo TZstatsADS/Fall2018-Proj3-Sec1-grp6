@@ -15,9 +15,9 @@ superResolution <- function(LR_dir, HR_dir, modelList){
   ### load libraries
   library("EBImage")
   n_files <- length(list.files(LR_dir))
-  
+
   ### read LR/HR image pairs
-  for(i in 1:n_files){
+  for(i in 1:3){
     imgLR <- readImage(paste0(LR_dir,  "img", "_", sprintf("%04d", i), ".jpg"))
     pathHR <- paste0(HR_dir,  "img", "_", sprintf("%04d", i), ".jpg")
     featMat <- array(NA, c(dim(imgLR)[1] * dim(imgLR)[2], 8, 3))
@@ -28,7 +28,7 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     ### step 1. sample n_points from imgLR
     
     dimLR <- dim(imgLR)
-    pixels = 1:length(dimLR[1] * dimLR[2])
+    pixels = seq(1,dimLR[1] * dimLR[2])
     pixels_row <- (pixels - 1)%%dimLR[1] + 1
     pixels_col <- (pixels - 1)%/%dimLR[1] + 1
     
@@ -37,26 +37,39 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     ### step 2.1. save (the neighbor 8 pixels - central pixel) in featMat
     ###           tips: padding zeros for boundary points
     
+    n_points <- dim(imgLR)[1] * dim(imgLR)[2] 
+    
     for(j in 1:3){
       
       pad <- cbind(0, imgLR[,,j], 0)
       pad <- rbind(0, pad, 0)
       
-      featMat[(i-1)*n_points + 1:n_points, 1, j] <- pad[cbind(pixels_row, pixels_col)]
-      featMat[(i-1)*n_points + 1:n_points, 2, j] <- pad[cbind(pixels_row, pixels_col + 1)]
-      featMat[(i-1)*n_points + 1:n_points, 3, j] <- pad[cbind(pixels_row, pixels_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 4, j] <- pad[cbind(pixels_row +1, pixels_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 5, j] <- pad[cbind(pixels_row +2, pixels_col+2)]
-      featMat[(i-1)*n_points + 1:n_points, 6, j] <- pad[cbind(pixels_row+2, pixels_col+1)]
-      featMat[(i-1)*n_points + 1:n_points, 7, j] <- pad[cbind(pixels_row+2, pixels_col)]
-      featMat[(i-1)*n_points + 1:n_points, 8, j] <- pad[cbind(pixels_row+1, pixels_col)]
+      featMat[1:n_points, 1, j] <- pad[cbind(pixels_row, pixels_col)]
+      featMat[1:n_points, 2, j] <- pad[cbind(pixels_row, pixels_col + 1)]
+      featMat[1:n_points, 3, j] <- pad[cbind(pixels_row, pixels_col+2)]
+      featMat[1:n_points, 4, j] <- pad[cbind(pixels_row +1, pixels_col+2)]
+      featMat[1:n_points, 5, j] <- pad[cbind(pixels_row +2, pixels_col+2)]
+      featMat[1:n_points, 6, j] <- pad[cbind(pixels_row+2, pixels_col+1)]
+      featMat[1:n_points, 7, j] <- pad[cbind(pixels_row+2, pixels_col)]
+      featMat[1:n_points, 8, j] <- pad[cbind(pixels_row+1, pixels_col)]
     }
     
     
     ### step 2. apply the modelList over featMat
-    predMat <- test(modelList, featMat)
+    predMat <- test(modelList, featMat)$arraypred
+  
     ### step 3. recover high-resolution from predMat and save in HR_dir
-    writeImage(predMat, file = paste("./output/HR_Image/", i, ".jpeg", sep = ""))
+   
+    imagearray <- array(NA, c((dim(imgLR)[1]*2), (dim(imgLR)[2]*2), 3))
+      
+    for(k in 1:3){
+      imagearray[seq(1,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,1:2,k])), ncol = dim(imgLR)[2]*2)
+      imagearray[seq(2,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,3:4,k])), ncol = dim(imgLR)[2]*2)
+    }
+    
+    imagearray <- Image(imagearray)
+    colorMode(imagearray) <- Color
+    writeImage(imagearray, file = paste(HR_dir, i, ".jpg", sep = ""))
     
   }
 }

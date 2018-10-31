@@ -20,7 +20,7 @@ cv.function <- function(X.train, y.train, modelvalues, K){
     
     #par <- list(depth=d)
     fit <- train(train.data, train.label, modelvalues)
-    pred <- test(fit, test.data)  
+    pred <- test(fit, test.data) 
     cv.error[i] <- mean((pred - test.label)^2)  
     
   }			

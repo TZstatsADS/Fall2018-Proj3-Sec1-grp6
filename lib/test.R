@@ -29,6 +29,6 @@ test <- function(modelList, dat_test){
     predArr[, c1, c2] <- predict(fit_train$fit, newdata=featMat, 
                     n.trees=fit_train$iter, type="response")
   }
-  return(as.numeric(predArr))
+  return(list(numericpred = as.numeric(predArr), arraypred = predArr))
 }
 
