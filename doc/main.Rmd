@@ -34,14 +34,14 @@ setwd("~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6")
 # here replace it with your own path or manually set it in RStudio to where this rmd file is located. 
 # use relative path for reproducibility
 
-entire_dir <- "./data/train_set/"
-entire_LR_dir <- paste(train_dir, "LR/", sep="")
-entire_HR_dir <- paste(train_dir, "HR/", sep="")
-# 
-# 
-lengthvec <- 1:length(list.files(entire_LR_dir))
-testingindex <- sample(lengthvec, 0.2 * length(lengthvec))
-trainingindex <- lengthvec[-testingindex]
+# entire_dir <- "./data/train_set/"
+# entire_LR_dir <- paste(train_dir, "LR/", sep="")
+# entire_HR_dir <- paste(train_dir, "HR/", sep="")
+# # 
+# # 
+# lengthvec <- 1:length(list.files(entire_LR_dir))
+# testingindex <- sample(lengthvec, 0.2 * length(lengthvec))
+# trainingindex <- lengthvec[-testingindex]
 ```
 
 
@@ -66,7 +66,7 @@ trainingindex <- lengthvec[-testingindex]
 
 Provide directories for training images. Low-resolution (LR) image set and High-resolution (HR) image set will be in different subfolders. 
 ```{r}
-train_dir <- "./data/train/" # This will be modified for different data sets.
+train_dir <- "./data/train_set/" # This will be modified for different data sets.
 
 
 train_LR_dir <- paste(train_dir, "LR/", sep="")
@@ -96,8 +96,8 @@ run.feature.test=TRUE # process features for test set
 Using cross-validation or independent test set evaluation, we compare the performance of models with different specifications. In this example, we use GBM with different `depth`. In the following chunk, we list, in a vector, setups (in this case, `depth`) corresponding to models that we will compare. In your project, you might compare very different classifiers. You can assign them numerical IDs and labels specific to your project. 
 
 ```{r model_setup}
-model_values <- list(depth = c(3, 11, 2), n.trees = c(150, 200))
-model_values <- expand.grid(depth = c(3, 11, 2), n.trees = c(150, 200))
+model_values <- list(depth = c(3, 11), n.trees = c(150, 200))
+model_values <- expand.grid(depth = c(3, 11), n.trees = c(150, 200))
 model_labels = paste("GBM with depth =", model_values)
 ```
 
