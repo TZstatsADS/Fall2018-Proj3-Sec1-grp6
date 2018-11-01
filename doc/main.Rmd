@@ -167,15 +167,31 @@ if(run.cv){
 
 Visualize cross-validation results. 
 ```{r cv_vis}
+# if(run.cv){
+#   load("../output/err_cv.RData")
+#   mv <- c("1", "1","1","1")
+#   plot(mv,err_cv[,1], xlab="Interaction Depth", ylab="CV Error",
+#        main="Cross Validation Error", type="n", ylim=c(0, 0.005))
+#   points(mv,err_cv[,1], col="blue", pch=16)
+#   lines(mv, err_cv[,1], col="blue")
+#   arrows(mv,err_cv[,1]-err_cv[,2], mv, err_cv[,1]+err_cv[,2], 
+#         length=0.1, angle=90, code=3)
+# }
+
+
 if(run.cv){
   load("../output/err_cv.RData")
-  plot(model_values, err_cv[,1], xlab="Interaction Depth", ylab="CV Error",
-       main="Cross Validation Error", type="n", ylim=c(0, 0.25))
-  points(model_values, err_cv[,1], col="blue", pch=16)
-  lines(model_values, err_cv[,1], col="blue")
-  arrows(model_values, err_cv[,1]-err_cv[,2], model_values, err_cv[,1]+err_cv[,2], 
-        length=0.1, angle=90, code=3)
+  mv <- factor(paste("(", model_values$depth,",", model_values$n.trees, ")"))
+  plot(err_cv[,1]~mv, xlab="(Interaction Depth, Number of trees)", ylab="CV Error",
+       main="Cross Validation Error", type="n", ylim=c(0, 0.005))
+  points(err_cv[,1]~mv, col="blue", pch=16)
+  lines(err_cv[,1]~mv, col="blue")
+  #arrows(mv,err_cv[,1]-err_cv[,2], mv, err_cv[,1]+err_cv[,2], 
+        #length=0.1, angle=90, code=3)
 }
+
+
+
 ```
 
 
@@ -187,6 +203,7 @@ if(run.cv){
 }
 
 par_best <- list(depth=model_best$depth, n.trees=model_best$n.trees)
+par_best
 ```
 
 * Train the model with the entire training set using the selected model (model parameter) via cross-validation.

@@ -43,15 +43,16 @@ superResolution <- function(LR_dir, HR_dir, modelList){
       
       pad <- cbind(0, imgLR[,,j], 0)
       pad <- rbind(0, pad, 0)
+      pad_central <- pad[cbind(pixels_row +1, pixels_col+1)]
       
-      featMat[1:n_points, 1, j] <- pad[cbind(pixels_row, pixels_col)]
-      featMat[1:n_points, 2, j] <- pad[cbind(pixels_row, pixels_col + 1)]
-      featMat[1:n_points, 3, j] <- pad[cbind(pixels_row, pixels_col+2)]
-      featMat[1:n_points, 4, j] <- pad[cbind(pixels_row +1, pixels_col+2)]
-      featMat[1:n_points, 5, j] <- pad[cbind(pixels_row +2, pixels_col+2)]
-      featMat[1:n_points, 6, j] <- pad[cbind(pixels_row+2, pixels_col+1)]
-      featMat[1:n_points, 7, j] <- pad[cbind(pixels_row+2, pixels_col)]
-      featMat[1:n_points, 8, j] <- pad[cbind(pixels_row+1, pixels_col)]
+      featMat[1:n_points, 1, j] <- pad[cbind(pixels_row, pixels_col)] -  pad_central
+      featMat[1:n_points, 2, j] <- pad[cbind(pixels_row, pixels_col + 1)] - pad_central
+      featMat[1:n_points, 3, j] <- pad[cbind(pixels_row, pixels_col+2)] - pad_central
+      featMat[1:n_points, 4, j] <- pad[cbind(pixels_row +1, pixels_col+2)] - pad_central
+      featMat[1:n_points, 5, j] <- pad[cbind(pixels_row +2, pixels_col+2)] - pad_central
+      featMat[1:n_points, 6, j] <- pad[cbind(pixels_row+2, pixels_col+1)] - pad_central
+      featMat[1:n_points, 7, j] <- pad[cbind(pixels_row+2, pixels_col)] - pad_central
+      featMat[1:n_points, 8, j] <- pad[cbind(pixels_row+1, pixels_col)] - pad_central
     }
     
     
@@ -63,8 +64,17 @@ superResolution <- function(LR_dir, HR_dir, modelList){
     imagearray <- array(NA, c((dim(imgLR)[1]*2), (dim(imgLR)[2]*2), 3))
       
     for(k in 1:3){
-      imagearray[seq(1,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,1:2,k])), ncol = dim(imgLR)[2]*2)
-      imagearray[seq(2,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,3:4,k])), ncol = dim(imgLR)[2]*2)
+      #doubleLR <- matrix(rep(pad[cbind(pixels_row +1, pixels_col+1)],4), ncol = 4)
+      
+      doubleLR <- matrix(rep(c(t(imgLR[, ,k])), each = 4), ncol = 4, byrow = TRUE)
+      
+      doubleLR[1:4,1:4]
+      imagearray[seq(1,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,1:2,k])), ncol = dim(imgLR)[2]*2, byrow = TRUE) + 
+                                                        matrix(c(t(doubleLR[,1:2])), ncol = dim(imgLR)[2]*2, byrow = TRUE)
+        
+      imagearray[seq(2,dim(imgLR)[1]*2, by =2 ),,k] <-  matrix(c(t(predMat[,3:4,k])), ncol = dim(imgLR)[2]*2,byrow = TRUE) + 
+                                                        matrix(c(t(doubleLR[,3:4])), ncol = dim(imgLR)[2]*2, byrow = TRUE)
+      imagearray[1:4,1:4,1]
     }
     
     imagearray <- Image(imagearray)
