@@ -1,7 +1,9 @@
 ---
 title: "Project 3"
 author: "Yunfan Li, Mingyu Yang, Peiqi Jin, Shichao Jia, Yanchen Chen"
-output: html_notebook
+output:
+  html_document: default
+  html_notebook: default
 ---
 
 In your final repo, there should be an R markdown file that organizes **all computational steps** for evaluating your proposed image classification framework. 
@@ -44,7 +46,7 @@ Set the working directory to the image folder.In order to obain reproducible res
 ```{r wkdir, eval=FALSE}
 set.seed(2018)
 #setwd("./ads_fall2018_proj3") 
-setwd("~/Documents/GitHub/Fall2018-Proj3-Sec1-grp6")
+setwd("K:/5291/Fall2018-Proj3-Sec1-grp6")
 
 ```
 
