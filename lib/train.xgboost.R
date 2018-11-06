@@ -8,6 +8,7 @@
 
 train.xgboost <- function(dat_train, label_train, par=NULL){
   
+  
   ### Train a Gradient Boosting Model (GBM) using processed features from training images
   
   ### Input: 
@@ -28,6 +29,9 @@ train.xgboost <- function(dat_train, label_train, par=NULL){
   } else {
     max_depth <- par$max_depth
     eta <- par$eta
+    #nrounds = par$nrounds
+    subsample = par$subsample
+    min_child_weight = par$min_child_weight
     
   }
   
@@ -43,10 +47,12 @@ train.xgboost <- function(dat_train, label_train, par=NULL){
                        max_depth=max_depth,
                        eta=eta,
                        nthread=2,
-                       nrounds=2,
+                       nrounds=10,
                        objective="reg:linear", 
                        verbose=FALSE,
-                       subsample = 0.5)
+                       subsample = subsample,
+                       min_child_weight = min_child_weight
+                       )
     modelList[[i]] <- list(fit=fit_xgboost)
   }
   
