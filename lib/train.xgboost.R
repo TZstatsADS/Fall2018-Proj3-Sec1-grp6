@@ -6,7 +6,7 @@
 ### Project 3
 
 
-train_xgboost <- function(dat_train, label_train, par=NULL){
+train.xgboost <- function(dat_train, label_train, par=NULL){
   
   ### Train a Gradient Boosting Model (GBM) using processed features from training images
   
@@ -26,8 +26,9 @@ train_xgboost <- function(dat_train, label_train, par=NULL){
     max_depth <- 2
     eta <- 1
   } else {
-    max_depth <- par[1]
-    eta <- par[2]
+    max_depth <- par$max_depth
+    eta <- par$eta
+    
   }
   
   ### the dimension of response arrat is * x 4 x 3, which requires 12 classifiers
@@ -43,8 +44,9 @@ train_xgboost <- function(dat_train, label_train, par=NULL){
                        eta=eta,
                        nthread=2,
                        nrounds=2,
-                       objective="binary:logistic", 
-                       verbose=FALSE)
+                       objective="reg:linear", 
+                       verbose=FALSE,
+                       subsample = 0.5)
     modelList[[i]] <- list(fit=fit_xgboost)
   }
   
