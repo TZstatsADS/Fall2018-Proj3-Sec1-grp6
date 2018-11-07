@@ -182,26 +182,32 @@ $(document).ready(function () {
 <h3>Load required packages</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYoIXJlcXVpcmUoXCJFQkltYWdlXCIpKXtcbiAgc291cmNlKFwiaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL2Jpb2NMaXRlLlJcIilcbiAgYmlvY0xpdGUoXCJFQkltYWdlXCIpXG59XG5pZighcmVxdWlyZShcImdibVwiKSl7XG4gIGluc3RhbGwucGFja2FnZXMoXCJnYm1cIilcbn1cbmxpYnJhcnkoXCJFQkltYWdlXCIpXG5saWJyYXJ5KFwiZ2JtXCIpXG5pZighcmVxdWlyZShcInhnYm9vc3RcIikpe1xuICBpbnN0YWxsLnBhY2thZ2VzKFwieGdib29zdFwiKVxufVxuaWYoIXJlcXVpcmUoXCJwbG90bHlcIikpe1xuICBpbnN0YWxsLnBhY2thZ2VzKFwicGxvdGx5XCIpXG59XG5saWJyYXJ5KFwiRUJJbWFnZVwiKVxubGlicmFyeShcImdibVwiKVxubGlicmFyeShcInhnYm9vc3RcIilcbmxpYnJhcnkoXCJwbG90bHlcIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYoIXJlcXVpcmUoXCJFQkltYWdlXCIpKXtcbiAgc291cmNlKFwiaHR0cHM6Ly9iaW9jb25kdWN0b3Iub3JnL2Jpb2NMaXRlLlJcIilcbiAgYmlvY0xpdGUoXCJFQkltYWdlXCIpXG59XG5cbmlmKCFyZXF1aXJlKFwiZ2JtXCIpKXtcbiAgaW5zdGFsbC5wYWNrYWdlcyhcImdibVwiKVxufVxuXG5saWJyYXJ5KFwiRUJJbWFnZVwiKVxubGlicmFyeShcImdibVwiKVxuXG5pZighcmVxdWlyZShcInhnYm9vc3RcIikpe1xuICBpbnN0YWxsLnBhY2thZ2VzKFwieGdib29zdFwiKVxufVxuXG5pZighcmVxdWlyZShcInBsb3RseVwiKSl7XG4gIGluc3RhbGwucGFja2FnZXMoXCJwbG90bHlcIilcbn1cblxubGlicmFyeShcIkVCSW1hZ2VcIilcbmxpYnJhcnkoXCJnYm1cIilcbmxpYnJhcnkoXCJ4Z2Jvb3N0XCIpXG5saWJyYXJ5KFwicGxvdGx5XCIpXG5cbmBgYCJ9 -->
 <pre class="r"><code>if(!require(&quot;EBImage&quot;)){
   source(&quot;https://bioconductor.org/biocLite.R&quot;)
   biocLite(&quot;EBImage&quot;)
 }
+
 if(!require(&quot;gbm&quot;)){
   install.packages(&quot;gbm&quot;)
 }
+
 library(&quot;EBImage&quot;)
 library(&quot;gbm&quot;)
+
 if(!require(&quot;xgboost&quot;)){
   install.packages(&quot;xgboost&quot;)
 }
+
 if(!require(&quot;plotly&quot;)){
   install.packages(&quot;plotly&quot;)
 }
+
 library(&quot;EBImage&quot;)
 library(&quot;gbm&quot;)
 library(&quot;xgboost&quot;)
-library(&quot;plotly&quot;)</code></pre>
+library(&quot;plotly&quot;)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -220,11 +226,13 @@ setwd(&quot;C:/43/paraalel/Fall2018-Proj3-Sec1-grp6&quot;)</code></pre>
 <p>Provide directories for training images. Low-resolution (LR) image set and High-resolution (HR) image set will be in different subfolders.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJhaW5fZGlyIDwtIFwiLi4vZGF0YS90cmFpbl9zZXQvXCIgIyBUaGlzIHdpbGwgYmUgbW9kaWZpZWQgZm9yIGRpZmZlcmVudCBkYXRhIHNldHMuXG50cmFpbl9MUl9kaXIgPC0gcGFzdGUodHJhaW5fZGlyLCBcIkxSL1wiLCBzZXA9XCJcIilcbnRyYWluX0hSX2RpciA8LSBwYXN0ZSh0cmFpbl9kaXIsIFwiSFIvXCIsIHNlcD1cIlwiKVxudHJhaW5fbGFiZWxfcGF0aCA8LSBwYXN0ZSh0cmFpbl9kaXIsIFwibGFiZWwuY3N2XCIsIHNlcD1cIlwiKSBcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJhaW5fZGlyIDwtIFwiLi4vZGF0YS90cmFpbl9zZXQvXCIgIyBUaGlzIHdpbGwgYmUgbW9kaWZpZWQgZm9yIGRpZmZlcmVudCBkYXRhIHNldHMuXG5cbnRyYWluX0xSX2RpciA8LSBwYXN0ZSh0cmFpbl9kaXIsIFwiTFIvXCIsIHNlcD1cIlwiKVxudHJhaW5fSFJfZGlyIDwtIHBhc3RlKHRyYWluX2RpciwgXCJIUi9cIiwgc2VwPVwiXCIpXG50cmFpbl9sYWJlbF9wYXRoIDwtIHBhc3RlKHRyYWluX2RpciwgXCJsYWJlbC5jc3ZcIiwgc2VwPVwiXCIpIFxuXG5gYGAifQ== -->
 <pre class="r"><code>train_dir &lt;- &quot;../data/train_set/&quot; # This will be modified for different data sets.
+
 train_LR_dir &lt;- paste(train_dir, &quot;LR/&quot;, sep=&quot;&quot;)
 train_HR_dir &lt;- paste(train_dir, &quot;HR/&quot;, sep=&quot;&quot;)
-train_label_path &lt;- paste(train_dir, &quot;label.csv&quot;, sep=&quot;&quot;) </code></pre>
+train_label_path &lt;- paste(train_dir, &quot;label.csv&quot;, sep=&quot;&quot;) 
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
