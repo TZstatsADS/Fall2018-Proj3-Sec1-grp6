@@ -1,7 +1,7 @@
 ### Project 3
 
 
-train.gbmpar <- function(dat_train, label_train, par=NULL){
+train <- function(dat_train, label_train, par=NULL){
   
   ### Train a Gradient Boosting Model (GBM) using processed features from training images
   
