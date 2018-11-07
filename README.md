@@ -5,7 +5,7 @@
 
 Term: Fall 2018
 
-+ Team #
++ Team # 3
 + Team members
 	+ Yunfan Li
 	+ Mingyu Yang
