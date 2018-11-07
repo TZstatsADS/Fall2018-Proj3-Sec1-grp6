@@ -17,10 +17,10 @@ Term: Fall 2018
 	
 **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members approve our work presented in this GitHub repository including this contributions statement. Each member complete the following task: 
 
-Baseline Model: Yunfan Li, Mingyu Yang
-Advanced Model: Peiqi Jin
-PPT and implementation: Shichao Jia
-Parrallelization of functions: Yanchen Chen
+Baseline Model: Yunfan Li, Mingyu Yang  
+Advanced Model: Peiqi Jin  
+PPT and implementation: Shichao Jia  
+Parrallelization of functions: Yanchen Chen  
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
