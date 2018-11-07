@@ -2,10 +2,10 @@
 ### Cross Validation ###
 ########################
 
-### Author: Chengliang Tang
+### Author: 
 ### Project 3
 
-cv.function.gbmpar <- function(X.train, y.train, modelvalues, K){
+cv.function <- function(X.train, y.train, modelvalues, K){
   
   n <- dim(y.train)[1]
   n.fold <- floor(n/K)
@@ -19,7 +19,7 @@ cv.function.gbmpar <- function(X.train, y.train, modelvalues, K){
     test.label <- y.train[s == i, ,]
     
     #par <- list(depth=d)
-    fit <- train.gbmpar(train.data, train.label, modelvalues)
+    fit <- train(train.data, train.label, modelvalues)
     pred <- test(fit, test.data)
     pred <- pred$numericpred
     cv.error[i] <- mean((pred - test.label)^2)  
