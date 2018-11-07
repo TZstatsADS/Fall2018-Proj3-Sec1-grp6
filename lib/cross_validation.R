@@ -27,3 +27,5 @@ cv.function <- function(X.train, y.train, modelvalues, K){
   }			
   return(c(mean(cv.error),sd(cv.error)))
 }
+
+
