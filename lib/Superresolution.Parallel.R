@@ -91,10 +91,10 @@ superResolution.par <- function(LR_dir, HR_dir, modelList){
     
     imagearray <- Image(imagearray)
     colorMode(imagearray) <- Color
-    writeImage(imagearray, file = paste(HR_dir, i, ".jpg", sep = ""))
+    writeImage(imagearray, file = paste0(HR_dir,  "img_", sprintf("%04d", i), ".jpg"))
     
   }
   stopCluster(cl)
-}
+}paste
 
 
